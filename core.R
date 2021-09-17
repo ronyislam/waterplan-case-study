@@ -27,7 +27,7 @@ for(i in 1:length(x)){
   y<-c(y,t)
 }
 
-png(file="Rainfall_CDF.png",
+png(file="plots/Rainfall_CDF.png",
     width=600, height=600)
 cdfPlot <- plot(x,y)
 cdfPlot
@@ -82,7 +82,7 @@ for(j in 1:ntrials){
 }
 
 ##distribution of water system volume from all trials
-png(file="Distribution_of_trial_results_CN_of_68.png",
+png(file="plots/Distribution_of_trial_results_CN_of_68.png",
     width=600, height=600)
 hist(poolTrials[["Volume (m3)"]])
 dev.off()
@@ -90,7 +90,7 @@ dev.off()
 #plot water volume over time for all trials
 pool.df$CN <- as.factor(pool.df$CN)
 
-png(file="Water_Volumes_Over_Time_50_Trials_CN_of_68.png",
+png(file="plots/Water_Volumes_Over_Time_50_Trials_CN_of_68.png",
     width=600, height=600)
 poolPlot <- ggplot(pool.df, aes(x=Day, y=Volume, group = Trial, color = CN)) +
          geom_line()
@@ -146,7 +146,7 @@ for(j in 1:ntrials){
   
   ##save distribution plot of daily rainfall from the fifth trial, just for show
   if(j==5){
-    png(file="Rainfall_Distribution.png",
+    png(file="plots/Rainfall_Distribution.png",
         width=600, height=600)
     distributionPlot <- hist(z)
     distributionPlot
@@ -164,7 +164,7 @@ pool.df$CN <- as.factor(pool.df$CN)
 ##Volume needed to start production
 requiredVolume = 13000
 
-png(file="Water_Volumes_Over_Time_50_Trials_2_CN.png",
+png(file="plots/Water_Volumes_Over_Time_50_Trials_2_CN.png",
     width=600, height=600)
 poolPlot <- ggplot(pool.df, aes(x=Day, y=Volume, group = interaction(Trial, CN), color = CN)) +
   geom_line() + 
@@ -180,7 +180,7 @@ finalWaterVolume <- pool.df %>%
   summarise(meetsThreshold = sum(!is.na(thresholdCheck))/ntrials)
 
 #Table for project success chance by CN number
-png("Project_Success_Chances.png")
+png("plots/Project_Success_Chances.png")
 p<-tableGrob(finalWaterVolume)
 grid.arrange(p)
 dev.off()
